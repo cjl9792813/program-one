@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0 ;
+            padding: 0;
+        }
+        canvas{
+            border: 1px solid red;
+        }
+        .img1{
+            display: none;
+        }
+        .img2{
+            position: absolute;
+            left: 150px;
+            top: 150px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id = "cvs" width="800" height="800"></canvas>
+    <img class="img1" src="image/g15_up.jpg" alt=""/>
+    <img class="img2" src="image/g15_back.jpg" alt=""/>
+
+    <script>
+        var cvs = document.getElementById('cvs');
+        var ctx = cvs.getContext('2d');
+
+        var img1=document.getElementsByTagName("img")[0];
+        var img2=document.getElementsByTagName("img")[1];
+
+        var rollx,rolly;
+
+        function angleToRadian(angle){
+            return Math.PI / 180*angle;
+        }
+
+        window.onload = function(){
+            //想象抠图（从哪里开始，抠出来多少）
+            /*ctx.drawImage(img2,0,0,img2.width,img2.height,150,150,img2.width,img2.height);*/
+            ctx.drawImage(img1,0,0,img1.width,img1.height,150,150,img1.width,img1.height);
+            document.onclick=function(e){
+                var ev= e.event||window.event;
+                document.onmousemove=function(e) {
+                    var ev = e.event || window.event;
+                    rollx=ev.x;
+                    rolly=ev.y;
+                    ctx.clearRect(rollx-20,rolly-20,40,40);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

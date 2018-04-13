@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .cvs{
+        border: 1px solid red;}
+    </style>
+</head>
+<body>
+
+<canvas class="cvs" width="500" height="500">
+
+</canvas>
+
+</body>
+<script>
+    function angleToRadian(angle){
+        return Math.PI / 180*angle;
+    }
+    var cvs=document.querySelector(".cvs");
+    var ctx=cvs.getContext("2d");
+
+    window.addEventListener("mousedown",function(e){
+        var ev= e.event||window.event;
+        var target=ev.target||ev.srcElement;
+
+        if(ev.button==0){
+            var startX=ev.x;
+            var startY=ev.y;
+            document.onmousemove=function(e){
+                ctx.clearRect(0,0,cvs.width,cvs.height);
+                ctx.beginPath();
+                var ev=e.event||window.event;
+                var X=ev.x;
+                var Y=ev.y;
+                var r=Math.sqrt(Math.pow(Math.abs(X-startX),2)+Math.pow(Math.abs(Y-startY),2));
+                ctx.arc(startX,startY,r,0,Math.PI*2);
+                ctx.stroke();
+            };
+        }
+    });
+    document.addEventListener("mouseup",function(){
+        document.onmousemove=null;
+    })
+
+
+
+</script>
+</html>
